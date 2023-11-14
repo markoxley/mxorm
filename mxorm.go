@@ -47,6 +47,10 @@ func Configure(c *config.Config) error {
 	if err != nil {
 		return err
 	}
+	err = db.Ping()
+	if err != nil {
+		return err
+	}
 	db.Close()
 	configured = true
 	return nil

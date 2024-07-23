@@ -413,7 +413,8 @@ func RawSelect(sql string) []map[string]interface{} {
 		res.Scan(vls...)
 		row := make(map[string]interface{})
 		for i, n := range cc {
-			row[n] = vls[i]
+			tmp := vls[i]
+			row[n] = *(tmp.(**string)) //vls[i]
 		}
 		data = append(data, row)
 	}

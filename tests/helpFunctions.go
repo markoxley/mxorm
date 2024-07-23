@@ -81,3 +81,15 @@ func compareDates(s time.Time, d time.Time) bool {
 
 	return d1 == d2
 }
+
+func populateTable() {
+	names := []string{"Mark", "Sally", "Oliver"}
+	ages := []int{52, 57, 22}
+	configuremxorm()
+	sql := "Drop table if exists TestModel;"
+	mxorm.RawExecute(sql)
+	for i := range names {
+		tm := &TestModel{Name: names[i], Age: ages[i]}
+		mxorm.Save(tm)
+	}
+}

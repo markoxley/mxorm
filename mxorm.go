@@ -156,6 +156,12 @@ func selectQuery[T Modeller](q string) ([]*T, bool) {
 	return populateModel[T](res)
 }
 
+func doRestore(m interface{}) {
+	if r, ok := m.(Restorer); ok {
+		r.Restore()
+	}
+}
+
 // populateModel creates a new slice of models of the type
 // specified by the type parameter and populates the fields from the sql query
 // @param r
@@ -298,6 +304,8 @@ func populateModel[T Modeller](r *sql.Rows) ([]*T, bool) {
 
 		}
 		newObj := interface{}(v.Elem().Interface()).(T)
+		p := &newObj
+		doRestore(p)
 		res = append(res, &newObj)
 		rowCount++
 

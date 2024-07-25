@@ -60,6 +60,8 @@ func (m Model) IsDeleted() bool {
 	return m.DeleteDate == nil
 }
 
+func (m Model) Restore() {}
+
 // getTableName getTableNAme returns the name of the table based on the Model specified
 // @param m
 // @return string

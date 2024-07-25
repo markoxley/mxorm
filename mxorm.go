@@ -525,6 +525,9 @@ func Count[T Modeller](criteria ...interface{}) int {
 // @param m
 // @return bool
 func Save(m Modeller) bool {
+	if u, ok := m.(Updater); ok {
+		u.Update()
+	}
 	if m.IsNew() {
 		return executeQuery(insertCommand(m))
 	}

@@ -515,7 +515,9 @@ func Count[T Modeller](criteria ...interface{}) int {
 		return 0
 	}
 	s := fmt.Sprintf("Select Count(*) from `%s`", t)
-	s += c.WhereString()
+	if c != nil {
+		s += c.WhereString()
+	}
 	if i, ok := selectScalar(s); ok {
 		if vl, vlok := i.(string); vlok {
 			if res, err := strconv.Atoi(vl); err == nil {
